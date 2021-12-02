@@ -1,5 +1,3 @@
-// advent_of_code.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
 #include <string>
@@ -30,30 +28,37 @@ int main()
         depth_measurements.push_back(current_num);
     };
 
+    cout << "files collected. There are " << depth_measurements.size() << " entries." << std::endl;
 
     int times_increased = 0; //to measure times increased
+    std::vector<int> measurement_sums;
     for (unsigned int i = 0; i < depth_measurements.size(); i++)
     {
         int current_measurement = depth_measurements[i];
+        if (i >= 2) {
+            int measurement_1_behind = depth_measurements[i - 1];
+            int measurement_2_behind = depth_measurements[i - 2];
+
+            int sum = current_measurement + measurement_1_behind + measurement_2_behind;
+            measurement_sums.push_back(sum);
+        }
+        else {
+            cout << "skipped" << endl;
+        }
+
+    };
+
+    for (unsigned int i = 0; i < measurement_sums.size(); i++) {
+        int current_measurement = measurement_sums[i];
         if (i >= 1) {
-            int previous_measurement = depth_measurements[i - 1];
+            int previous_measurement = measurement_sums[i - 1];
             if (current_measurement > previous_measurement) {
                 times_increased = times_increased + 1;
             };
         };
-    };
+    }
 
     std::cout << "Number of times depth measurement increased was: " << times_increased << std::endl;
 
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
