@@ -2,8 +2,8 @@
 *.d
 
 # vs
-*.vs
-*.Debug
+**/vs
+**/Debug
 
 # Compiled Object files
 *.slo
